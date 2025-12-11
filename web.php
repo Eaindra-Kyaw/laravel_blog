@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 
 Route::get('/products', function () {
- return 'Products List';
+ return 'Lipsticks';
 });
 Route::get('/products/names', function () {
  return 'Romand';
