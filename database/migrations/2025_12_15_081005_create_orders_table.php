@@ -13,14 +13,14 @@ return new class extends Migration
 {
     Schema::create('orders', function (Blueprint $table) {
     $table->id();
-    $table->foreignId('product_id')->constrained()->onDelete('cascade');  // ← MUST have
-    $table->integer('quantity');  // ← MUST have
-    $table->decimal('total_price', 8, 2);  // ← MUST have
-    $table->string('customer_name');  // ← MUST have
-    $table->string('customer_email');  // ← MUST have
-    $table->string('customer_phone')->nullable();  // ← MUST have
-    $table->text('shipping_address');  // ← MUST have
-    $table->enum('status', ['pending', 'processing', 'completed', 'cancelled'])->default('pending');  // ← MUST have
+    $table->foreignId('product_id')->constrained()->onDelete('cascade'); 
+    $table->integer('quantity'); 
+    $table->decimal('total_price', 8, 2);
+    $table->string('customer_name');  
+    $table->string('customer_email');  
+    $table->string('customer_phone')->nullable();  
+    $table->text('shipping_address'); 
+    $table->enum('status', ['pending', 'processing', 'completed', 'cancelled'])->default('pending'); 
     $table->timestamps();
 });
 }
