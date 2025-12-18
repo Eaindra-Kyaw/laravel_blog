@@ -1,39 +1,28 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\Product\ArticleController;
 
+// Article routes
 Route::get('/index1', [ArticleController::class, 'index1']);
 Route::get('/sample', [ArticleController::class, 'sample']);
 Route::get('/detail/{id}', [ArticleController::class, 'detail']);
-Route::get('/articles', [ArticleController::class, 'index']); // for your $data array
+Route::get('/articles', [ArticleController::class, 'index']);
 
+// Employee routes
+Route::get('/employees', [EmployeeController::class, 'index'])->name('employees.index');
+Route::get('/create-employee', [EmployeeController::class, 'createSample']);
+Route::get('/update-employee', [EmployeeController::class, 'updateSample']);
+Route::get('/delete-employee', [EmployeeController::class, 'deleteSample']);
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
+// Test route
+Route::get('/test-dd', function () {
+    $employees = \App\Models\Employee::all();
+    dd($employees);
+});
 
-// Route::get('/products', function () {
-//     return 'Lipsticks';
-// });
-
-// Route::get('/products/names', function () {
-//     return 'Romand';
-// });
-
-// Route::get('/products/names/{id}', function ($id) {
-//     return "Romand - $id";
-// });
-
-// Route::get('/products/names', function () {
-//     return 'Romand';
-// })->name('products.names');
-
-// Route::get('/products/more', function () {
-//     return redirect('/products/names');
-// });
-
-// Route::get('/products/more', function () {
-//     return redirect()->route('products.names');
-// });
+// Home route
+Route::get('/', function () {
+    return view('welcome');
+});
