@@ -33,30 +33,14 @@ Route::get('/products', [ProductController::class, 'index'])->name('products.ind
 Route::get('/create-product', [ProductController::class, 'createSample']);
 Route::get('/product-orders', [ProductController::class, 'productOrders']);
 
-Route::get('/test-employee-products/{id}', [EmployeeController::class, 'showProducts']);
-Route::get('/test-product-orders/{id}', [ProductController::class, 'showOrders']);
+// Employee → Product (hasOne)
+Route::get('/employee/{id}/product', [EmployeeController::class, 'showProducts']);
 
-// Test Employee -> Product (hasOne)
-Route::get('/test-employee-product', function () {
-    $employee = Employee::with('product')->find(1);
-    if ($employee && $employee->product) {
-        echo "Employee: {$employee->name} <br>";
-        echo "Product: {$employee->product->name} <br>";
-    } else {
-        echo "No product found for employee.";
-    }
-});
+// Product → Orders (hasMany)
+Route::get('/product/{id}/orders', [EmployeeController::class, 'showOrders']);
 
-// Test Product -> Employee (belongsTo)
-Route::get('/test-product-employee', function () {
-    $product = Product::with('employee')->find(1);
-    if ($product && $product->employee) {
-        echo "Product: {$product->name} <br>";
-        echo "Employee: {$product->employee->name} <br>";
-    } else {
-        echo "No employee found for product.";
-    }
-});
+// Product → Employee (belongsTo)
+Route::get('/product/{id}/employee', [ProductController::class, 'showEmployee']);
 
 // --------------------------------------
 // Home route
