@@ -3,74 +3,25 @@
 namespace App\Http\Controllers;
 
 use App\Models\Employee;
-use Illuminate\Http\Request;
+use App\Models\Product;
 
 class EmployeeController extends Controller
 {
+    public function showProducts($id)
+    {
+        $employee = Employee::with('products')->find($id);
 
-    public function index(){
-
-        // Employee::create([
-        //     'name' => 'Hla Hla',
-        //     'age' => 19,
-        //     'position' => 'Sale',
-
-        // $data = Article::all();
-        // return view('employees.index', [
-        //     'employees' => $data
-        // ]);
-
-        // $employees = Employee::all();
-        // d($employees);
-
-        // Employee::all();
-
-        // Employee::find(2);
-
-        // Employee::where('id', 1)->get();
-
-        // Employee::where('name', 'updated_name')->first();
-
-        // Employee::orderBy('id', 'desc')->get();
-
-        // Employee::pluck('name');
-
-        $employees = Employee::all();
-        return view('employees.index', compact('employees'));
+        foreach($employee->products as $product) {
+            echo $product->name . "<br>";
+        }
     }
 
-
-   // public function createSample()
-  //  {
-        // Employee::create([
-        //     'name' => 'Alex',
-        //     'age' => 25,
-        //     'position' => 'Sale'
-        // ]);
-    //     return redirect('/employees')->with('success', 'Employee created!');
-    // }
-
-    // public function updateSample()
-
-        // $employee = Employee::find(2);
-        // if ($employee) {
-        //     $employee->update([
-        //         'name' => 'John',
-        //         'age' => 31,
-        //         'position' => 'Senior Manager'
-        //     ]);
-        // }
-
-        // echo "Employee updated!";
-// return redirect('/employees')->with('success', 'Employee updated!');
-
-public function deleteSample()
+    public function showOrders($productId)
     {
-        $employee = Employee::find(3);
-        if ($employee) {
-            $employee->delete();
-        }
+        $product = Product::with('orders')->find($productId);
 
-        return redirect('/employees')->with('success', 'Employee deleted!');
+        foreach($product->orders as $order) {
+            echo $order->order_number . "<br>";
+        }
     }
 }
