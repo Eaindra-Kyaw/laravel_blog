@@ -8,13 +8,15 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::create('products', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->integer('price');
-            $table->foreignId('employee_id')->constrained('employees')->onDelete('cascade');
-            $table->timestamps();
-        });
+    Schema::create('products', function (Blueprint $table) {
+        $table->id();
+        $table->string('name');
+        $table->integer('price');
+        $table->unsignedBigInteger('employee_id'); // foreign key
+        $table->timestamps();
+        $table->foreign('employee_id')->references('id')->on('employees')->onDelete('cascade');
+});
+
     }
 
     public function down(): void
