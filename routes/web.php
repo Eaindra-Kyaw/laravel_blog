@@ -33,6 +33,9 @@ Route::get('/products', [ProductController::class, 'index'])->name('products.ind
 Route::get('/create-product', [ProductController::class, 'createSample']);
 Route::get('/product-orders', [ProductController::class, 'productOrders']);
 
+Route::get('/test-employee-products/{id}', [EmployeeController::class, 'showProducts']);
+Route::get('/test-product-orders/{id}', [ProductController::class, 'showOrders']);
+
 // Test Employee -> Product (hasOne)
 Route::get('/test-employee-product', function () {
     $employee = Employee::with('product')->find(1);
