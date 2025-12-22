@@ -9,19 +9,18 @@ class EmployeeController extends Controller
 {
     public function showProducts($id)
     {
-        $employee = Employee::with('products')->find($id);
-
-        foreach($employee->products as $product) {
-            echo $product->name . "<br>";
-        }
+        $employee = Employee::with('product')->find($id);
+        return "Employee: {$employee->name} <br> Product: {$employee->product->name}";
     }
 
     public function showOrders($productId)
     {
         $product = Product::with('orders')->find($productId);
-
-        foreach($product->orders as $order) {
-            echo $order->order_number . "<br>";
+        $output = "Product: {$product->name} <br> Orders: <br>";
+        foreach ($product->orders as $order) {
+            $output .= "- {$order->order_number}<br>";
         }
+
+        return $output;
     }
 }
