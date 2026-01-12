@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Http\Request;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -20,6 +21,36 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/user1', function () {
         return 'Private Page - Only user1 can access';
     })->middleware('password.confirm');
+});
+
+Route::get('/employees', function () {
+    $articles = [
+        ['name' => 'Employee One'],
+        ['name' => 'Employee Two'],
+        ['name' => 'Employee Three'],
+    ];
+
+    return view('index', compact('articles'));
+});
+
+Route::get('/employee-form', function () {
+    return view('employee-form');
+});
+
+Route::post('/employee-form', function (Request $request) {
+    // Validate the form input
+    $validated = $request->validate([
+        'name' => 'required|min:3',
+    ]);
+
+    // Save to database
+    DB::table('employees')->insert([
+        'name' => $validated['name'],
+        'created_at' => now(),
+        'updated_at' => now(),
+    ]);
+
+    return back()->with('success', 'Employee added successfully!');
 });
 
 require __DIR__.'/auth.php';

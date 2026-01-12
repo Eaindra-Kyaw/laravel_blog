@@ -14,4 +14,6 @@ class Article extends Model
         'body',
         'category_id',
     ];
+
+    protected guarded all[];
 }

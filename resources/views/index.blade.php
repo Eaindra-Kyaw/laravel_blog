@@ -1,18 +1,15 @@
-<!DOCTYPE html>
-<html lang="en" dir="ltr">
+<x-app-layout>
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+            Employee List
+        </h2>
+    </x-slot>
 
-<head>
-    <meta charset="utf-8">
-    <title>Product List</title>
-</head>
-
-<body>
-    <h1>Product List</h1>
-    <ul>
-        <?php foreach($articles as $article): ?>
-        <li><?php echo $article['item']; ?></li>
-        <?php endforeach ?>
-    </ul>
-</body>
-
-</html>
+    <div class="p-6">
+        <ul class="list-disc pl-6">
+            @foreach ($articles as $article)
+                <li>{{ $article['name'] ?? 'No Name' }}</li>
+            @endforeach
+        </ul>
+    </div>
+</x-app-layout>
