@@ -7,22 +7,22 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::middleware(['auth'])->group(function () {
 
-Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::get('/dashboard', function () {
+        return view('dashboard');
+    })->name('dashboard');
+
+    Route::get('/admin', function () {
+        return 'Admin Page - Only logged in users';
+    })->middleware('password.confirm');
+
+    Route::get('/user1', function () {
+        return 'Private Page - Only user1 can access';
+    })->middleware('password.confirm');
 });
 
-Route::get('/userOne', function () {
-    return 'Admin Page - Only userOne can access';
-})->middleware('check.password');
-
 require __DIR__.'/auth.php';
-
 
 // use Illuminate\Support\Facades\Route;
 // use App\Http\Controllers\EmployeeController;
