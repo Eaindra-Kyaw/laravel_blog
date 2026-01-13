@@ -15,5 +15,5 @@ class Article extends Model
         'category_id',
     ];
 
-    protected guarded all[];
+    protected $guarded = [];
 }

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Employee;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class EmployeeController extends Controller
 {
@@ -24,5 +26,25 @@ class EmployeeController extends Controller
     public function showAll($id)
     {
         return Employee::with(['profile','orders','products'])->findOrFail($id);
+    }
+
+    public function create()
+    {
+        return view('employee-form');
+    }
+
+    public function store(Request $request)
+    {
+        $validated = $request->validate([
+            'name' => 'required|min:3',
+        ]);
+
+        DB::table('employees')->insert([
+            'name' => $validated['name'],
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+
+        return back()->with('success', 'Employee added successfully!');
     }
 }

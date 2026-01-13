@@ -37,21 +37,11 @@ Route::get('/employee-form', function () {
     return view('employee-form');
 });
 
-Route::post('/employee-form', function (Request $request) {
-    // Validate the form input
-    $validated = $request->validate([
-        'name' => 'required|min:3',
-    ]);
+use App\Http\Controllers\EmployeeController;
 
-    // Save to database
-    DB::table('employees')->insert([
-        'name' => $validated['name'],
-        'created_at' => now(),
-        'updated_at' => now(),
-    ]);
+Route::get('/employee-form', [EmployeeController::class, 'create']);
 
-    return back()->with('success', 'Employee added successfully!');
-});
+Route::post('/employee-form', [EmployeeController::class, 'store']);
 
 require __DIR__.'/auth.php';
 
