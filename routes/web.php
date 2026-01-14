@@ -48,7 +48,7 @@ Route::get('/employees', [EmployeeController::class, 'index'])->name('employees.
 Route::get('/employee-edit/{id}', [EmployeeController::class, 'edit']);
 Route::put('/employee-update/{id}', [EmployeeController::class, 'update']);
 // Delete
-Route::get('/employee-delete/{id}', [EmployeeController::class, 'destroy']);
+Route::delete('/employee-delete/{id}', [EmployeeController::class, 'destroy']);
 });
 
 require __DIR__.'/auth.php';
