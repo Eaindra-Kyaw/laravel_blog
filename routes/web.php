@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\EmployeeController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -37,11 +38,18 @@ Route::get('/employee-form', function () {
     return view('employee-form');
 });
 
-use App\Http\Controllers\EmployeeController;
-
+Route::middleware('auth')->group(function(){
+// Create form
 Route::get('/employee-form', [EmployeeController::class, 'create']);
-
 Route::post('/employee-form', [EmployeeController::class, 'store']);
+// Read (list all)
+Route::get('/employees', [EmployeeController::class, 'index'])->name('employees.index');
+// Update
+Route::get('/employee-edit/{id}', [EmployeeController::class, 'edit']);
+Route::put('/employee-update/{id}', [EmployeeController::class, 'update']);
+// Delete
+Route::get('/employee-delete/{id}', [EmployeeController::class, 'destroy']);
+});
 
 require __DIR__.'/auth.php';
 
